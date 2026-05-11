@@ -5,12 +5,10 @@
 
             <a href="{{ $localizedUrls[$currentLocale] ?? '/' }}" class="logo text-light"><strong class="fs-18">{{ __('messages.City Potato') }}</strong></a>
 
-            <!-- Sidebar Menu Toggle Button -->
             <button class="sidenav-toggle-button px-2">
                 <i class="ri-menu-2-line fs-24"></i>
             </button>
 
-            <!-- Horizontal Menu Toggle Button -->
             <button class="topnav-toggle-button px-2" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
                 <i class="ri-menu-2-line fs-24"></i>
             </button>
@@ -54,7 +52,6 @@
                 <div class="dropdown">
                     <a class="topbar-link dropdown-toggle drop-arrow-none px-2" data-bs-toggle="dropdown"
                         data-bs-offset="0,25" type="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="#" width="32" class="rounded-circle me-lg-2 d-flex" alt="user-image">
                         <span class="d-lg-flex flex-column gap-1 d-none">
                             <span class="fw-semibold">{{ auth()->user()->name }}</span>
                         </span>
@@ -63,13 +60,13 @@
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">{{ __('Welcome') }} !</h6>
+                            <h6 class="text-overflow m-0">{{ __('messages.Welcome') }} !</h6>
                         </div>
 
                         <!-- item-->
                         <a href="#" class="dropdown-item">
                             <i class="ri-account-circle-line me-1 fs-16 align-middle"></i>
-                            <span class="align-middle">{{ __('My Account') }}</span>
+                            <span class="align-middle">{{ __('messages.My Account') }}</span>
                         </a>
 
                         <div class="dropdown-divider"></div>
@@ -78,7 +75,7 @@
                             @csrf
                             <a class="dropdown-item fw-semibold text-danger" href="#" onclick="event.preventDefault(); this.closest('form').submit();">
                                 <i class="ri-logout-box-line me-1 fs-16 align-middle"></i>
-                                <span class="align-middle">{{ __('Sign Out') }}</span>
+                                <span class="align-middle">{{ __('messages.Sign Out') }}</span>
                             </a>
                         </form>
                     </div>

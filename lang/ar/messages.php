@@ -3,7 +3,6 @@
 return [
     'Home' => 'الرئيسية',
     'About Us' => 'من نحن',
-    'Menu' => 'القائمة',
     'Special Offers' => 'العروض',
     'Jobs' => 'وظائف',
     'Contact Us' => 'تواصل معنا',
@@ -36,4 +35,15 @@ return [
     'Navigation' => 'التصفّح',
     'Manage Users' => 'إدارة المستخدمين',
     'Users' => 'المستخدمين',
+    'Menu' => 'قائمة الطعام',
+    'Extras' => 'الاضافات',
+    'Meals' => 'الوجبات',
+    'Categories' => 'الفئات',
+    'Sign Out' => 'تسجيل الخروج',
+    'My Account' => 'حسابي',
+    'Welcome' => 'مرحباَ',
+    'Manage Branches' => 'ادارة الفروع',
+    'Manage Content' => 'ادارة المحتوى',
+    'Banners' => 'لافتات',
+    'Contacts' => 'التواصل',
 ];

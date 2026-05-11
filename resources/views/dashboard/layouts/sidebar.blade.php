@@ -40,36 +40,39 @@
                 </a>
             </li>
 
+            <li class="side-nav-title">{{__('messages.Manage Branches')}}</li>
 
-            <li class="side-nav-title">{{__('Manage HR')}}</li>
+            <li class="side-nav-item">
+                <a href="#" class="side-nav-link">
+                    <span class="menu-icon"><i class="ri-map-pin-2-line"></i></span>
+                    <span class="menu-text"> {{__('messages.Branches')}} </span>
+                </a>
+            </li>
+
+            <li class="side-nav-title">{{__('messages.Menu')}}</li>
 
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarHR" aria-expanded="false" aria-controls="sidebarOperations"
                     class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-briefcase-line"></i></span>
-                    <span class="menu-text">{{__('HR')}}</span>
+                    <span class="menu-icon"><i class="ri-book-read-line"></i></span>
+                    <span class="menu-text">{{__('messages.Menu')}}</span>
                     <span class="menu-arrow"></span>
                 </a>
                 <div class="collapse" id="sidebarHR">
                     <ul class="sub-menu">
                         <li class="side-nav-item">
                             <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Sectors')}}</span>
+                                <span class="menu-text">{{__('messages.Categories')}}</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
                             <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Contracts')}}</span>
+                                <span class="menu-text">{{__('messages.Meals')}}</span>
                             </a>
                         </li>
                         <li class="side-nav-item">
                             <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Monthly Salaries')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Allowances')}}</span>
+                                <span class="menu-text">{{__('messages.Extras')}}</span>
                             </a>
                         </li>
                     </ul>
@@ -78,227 +81,22 @@
 
 
 
-            <li class="side-nav-title">{{__('Manage Inventory')}}</li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarInventory" aria-expanded="false" aria-controls="sidebarInventory"
-                    class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-archive-line"></i></span>
-                    <span class="menu-text">{{__('Inventory')}}</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarInventory">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Stock')}}</span>
-                                <span class="badge bg-danger rounded"> {{__('Stock Alert')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Requests')}}</span>
-                                <span class="badge bg-danger rounded"> {{__('Requests')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Transactions')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Warehouses')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Categories')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Items')}}</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
 
 
-            <li class="side-nav-title">{{__('Manage Sales')}}</li>
 
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarSales" aria-expanded="false" aria-controls="sidebarOperations"
-                    class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-line-chart-line"></i></span>
-                    <span class="menu-text">{{__('Sales')}}</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarSales">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Clients')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Contracts')}}</span>
-                                <span class="badge bg-danger rounded"> {{__('New')}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <li class="side-nav-title">{{__('Manage Operations')}}</li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarOperations" aria-expanded="false" aria-controls="sidebarOperations"
-                    class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-pulse-line"></i></span>
-                    <span class="menu-text">{{__('Operations')}}</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarOperations">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Pending Orders')}}</span>
-                                <span class="badge bg-danger rounded"> {{__('order')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Attributions')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Work Orders')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Urgent Orders')}}</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-
-
-            <li class="side-nav-title">{{__('Financial Management')}}</li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarFinancial" aria-expanded="false" aria-controls="sidebarOperations"
-                    class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-pie-chart-line"></i></span>
-                    <span class="menu-text">{{__('Financial')}}</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarFinancial">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Dashboard')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Chart of Accounts')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Journal Entries')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Invoices')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Reports')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Profit & Loss')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Balance Sheet')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Trial Balance')}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-            @endrole
-            @role('technician')
-            <li class="side-nav-title">{{__('Technical Assignments')}}</li>
-
-            <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTechnical" aria-expanded="false" aria-controls="sidebarOperations"
-                    class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-clipboard-line"></i></span>
-                    <span class="menu-text">{{__('Assignments')}}</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarTechnical">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Monthly Assignments')}}</span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('Daily Assignments')}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            <li class="side-nav-title">{{__('messages.Manage Content')}}</li>
 
             <li class="side-nav-item">
                 <a href="#" class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-archive-line"></i></span>
-                    <span class="menu-text"> {{__('My Inventory')}} </span>
+                    <span class="menu-icon"><i class="ri-image-2-line"></i></span>
+                    <span class="menu-text"> {{__('messages.Banners')}} </span>
                 </a>
             </li>
-
-            @endrole
-            @role('superadmin')
-            <li class="side-nav-title">{{__('Settings')}}</li>
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings" class="side-nav-link">
-                    <span class="menu-icon"><i class="ri-settings-line"></i></span>
-                    <span class="menu-text">{{__('Settings')}}</span>
-                    <span class="menu-arrow"></span>
+                <a href="#" class="side-nav-link">
+                    <span class="menu-icon"><i class="ri-contacts-book-line"></i></span>
+                    <span class="menu-text"> {{__('messages.Contacts')}} </span>
                 </a>
-                <div class="collapse" id="settings">
-                    <ul class="sub-menu">
-                        <li class="side-nav-item">
-                            <a href="#" class="side-nav-link">
-                                <span class="menu-text">{{__('SMTP Settings')}}</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
             @endrole
         </ul>
