@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // URL::forceScheme('https');
+        View::composer('*', function ($view) {
+            $supportedLocales = LaravelLocalization::getSupportedLocales();
+            $localizedUrls = [];
+
+            foreach ($supportedLocales as $localeCode => $properties) {
+                $localizedUrls[$localeCode] = LaravelLocalization::getLocalizedURL($localeCode);
+            }
+
+            $view->with([
+                'supportedLocales' => $supportedLocales,
+                'currentLocaleDirection' => LaravelLocalization::getCurrentLocaleDirection(),
+                'currentLocale' => app()->getLocale(),
+                'localizedUrls' => $localizedUrls,
+            ]);
+        });
     }
 }
