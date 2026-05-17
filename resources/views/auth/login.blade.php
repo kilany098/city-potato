@@ -39,10 +39,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 @endif
                 @endforeach
 
-                <!-- Register Button -->
-                <a href="{{ route('register') }}" class="hidden md:block px-4 py-1 rounded-full bg-orange-500 text-white hover:bg-orange-600">
-                    {{ __('messages.Register') }}
-                </a>
+
             </div>
         </div>
     </header>

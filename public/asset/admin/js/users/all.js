@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         submitButton.prop("disabled", true);
         submitButton.html(
-            '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...'
+            '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...',
         );
 
         // Create FormData for file upload support
@@ -34,7 +34,7 @@ $(document).ready(function () {
                     icon: "success",
                     showCloseButton: false,
                 }).then(() => {
-                    $('#createUserForm')[0].reset();
+                    $("#createUserForm")[0].reset();
                     $("#createUserModal").modal("hide");
                     $("#user-table").DataTable().ajax.reload();
                 });
@@ -46,7 +46,7 @@ $(document).ready(function () {
                         var inputField = $(`[name="${key}"]`);
                         inputField.addClass("is-invalid");
                         inputField.after(
-                            `<div class="invalid-feedback">${value[0]}</div>`
+                            `<div class="invalid-feedback">${value[0]}</div>`,
                         );
                     });
                 } else {
@@ -128,13 +128,14 @@ $(document).ready(function () {
         e.preventDefault();
 
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: window.translations.areYouSure,
+            text: window.translations.revertText,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: window.translations.yesDelete,
+            cancelButtonText: window.translations.cancel,
         }).then((result) => {
             if (result.isConfirmed) {
                 let url = $(this).attr("action");
@@ -143,24 +144,23 @@ $(document).ready(function () {
                     type: "DELETE",
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
+                            "content",
                         ),
                     },
                     success: function (response) {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: response.message,
-                                icon: "success",
-                                showCloseButton: false,
-                            }).then(() => {
-                                $("#user-table").DataTable().ajax.reload();
-                            });
-                        
+                        Swal.fire({
+                            title: window.translations.deleted,
+                            text: response.message,
+                            icon: "success",
+                            showCloseButton: false,
+                        }).then(() => {
+                            $("#user-table").DataTable().ajax.reload();
+                        });
                     },
                     error: function (response) {
                         Swal.fire({
-                            title: "Error!",
-                            text: "Failed to delete user",
+                            title: window.translations.error,
+                            text: window.translations.failedDelete,
                             icon: "error",
                         });
                     },

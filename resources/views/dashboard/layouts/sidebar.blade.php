@@ -25,7 +25,7 @@
             <li class="side-nav-title">{{__('messages.Navigation')}}</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('dashboard') }}" class="side-nav-link">
                     <span class="menu-icon"><i class="ri-archive-2-line"></i></span>
                     <span class="menu-text"> {{__('messages.Dashboard')}} </span>
                 </a>
@@ -34,7 +34,7 @@
             <li class="side-nav-title">{{__('messages.Manage Users')}}</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ route('users.index') }}" class="side-nav-link">
                     <span class="menu-icon"><i class="ri-user-line"></i></span>
                     <span class="menu-text"> {{__('messages.Users')}} </span>
                 </a>
