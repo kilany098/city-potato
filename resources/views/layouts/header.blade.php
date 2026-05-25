@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 py-2 md:py-3 flex items-center justify-between">
 
         <!-- Logo with Home Link -->
-        <a href="/" class="flex items-center gap-2 md:gap-3 shrink-0">
+        <a href="{{route('home')}}" class="flex items-center gap-2 md:gap-3 shrink-0">
             <img src="{{ asset('images/city-potato.jpg') }}" class="h-8 w-8 md:h-14 md:w-14 rounded-full shadow object-cover" alt="City Potato Logo">
             <span class="hidden sm:inline font-bold text-lg md:text-xl text-orange-600"> {{__('messages.City Potato')}}</span>
         </a>

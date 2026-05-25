@@ -5,6 +5,7 @@
     "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
     "infoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
     "infoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+    "emptyTable": "لا توجد بيانات متاحة في الجدول",
     "search": "ابحث:",
     "paginate": {
         "first": "الأول",

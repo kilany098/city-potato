@@ -87,7 +87,7 @@
             <li class="side-nav-title">{{__('messages.Manage Content')}}</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{route('banners.index')}}" class="side-nav-link">
                     <span class="menu-icon"><i class="ri-image-2-line"></i></span>
                     <span class="menu-text"> {{__('messages.Banners')}} </span>
                 </a>

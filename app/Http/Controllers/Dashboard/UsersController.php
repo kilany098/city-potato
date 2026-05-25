@@ -77,7 +77,7 @@ class UsersController extends Controller
         return response()->json(['message' => 'User updated successfully'], 200);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $user = User::find($id);
         $user->removeRole($user->roles->first()->name);

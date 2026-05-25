@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="createUserForm" action="{{ route('users.create') }}" class="row" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form id="createUserForm" action="{{ route('users.store') }}" class="row" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="mb-3 col-md-12">
                         <label for="name" class="form-label">{{__('messages.name')}}</label>

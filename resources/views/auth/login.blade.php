@@ -1,39 +1,32 @@
-@php
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-@endphp
-
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
+<html lang="{{ $currentLocale }}" dir="{{ $currentLocaleDirection }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('messages.Login') }} - City Potato</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link rel="icon" type="image/png" href="{{ asset('images/city-potato.jpg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gradient-to-b from-orange-50 to-white text-gray-800 min-h-screen">
 
-    <!-- 🔝 NAVBAR -->
     <header class="sticky top-0 z-50 backdrop-blur bg-white/70 border-b">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
 
-            <!-- Logo -->
             <div class="flex items-center gap-3">
-                <a href="{{ LaravelLocalization::getLocalizedURL(app()->getLocale()) }}">
+                <a href="{{route('home')}}">
                     <img src="{{ asset('images/city-potato.jpg') }}" class="h-16 w-16 rounded-full shadow">
                 </a>
             </div>
 
-            <!-- Right Side -->
             <div class="flex items-center gap-3">
 
                 <!-- Language -->
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                @foreach($supportedLocales as $localeCode => $properties)
                 @if($localeCode !== app()->getLocale())
-                <a href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}" class="px-3 py-1 rounded-full border text-sm font-semibold hover:bg-orange-100">
+                <a href="{{  $localizedUrls[$localeCode] }}" class="px-3 py-1 rounded-full border text-sm font-semibold hover:bg-orange-100">
                     {{ strtoupper($properties['native']) }}
                 </a>
                 @endif
@@ -44,16 +37,13 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
         </div>
     </header>
 
-    <!-- LOGIN FORM -->
-    <section class="flex items-center justify-center py-20 px-6">
+    <section class="flex items-center justify-center py-8 px-6">
         <div class="w-full max-w-md">
             <div class="bg-white rounded-2xl shadow-lg p-8">
                 <div class="text-center mb-8">
-                    <img src="{{ asset('images/logo.png') }}" class="mx-auto w-24 mb-4 drop-shadow-lg">
                     <h1 class="text-3xl font-bold text-orange-500 mb-2">{{ __('messages.Login to your account') }}</h1>
                 </div>
 
-                <!-- Session Status -->
                 @if (session('status'))
                 <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg text-sm">
                     {{ session('status') }}
@@ -63,7 +53,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
 
-                    <!-- Email Address -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ __('messages.Email') }}
@@ -76,7 +65,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         @enderror
                     </div>
 
-                    <!-- Password -->
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ __('messages.Password') }}
@@ -89,7 +77,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         @enderror
                     </div>
 
-                    <!-- Remember Me -->
                     <div class="mb-6">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox" name="remember"
@@ -98,7 +85,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         </label>
                     </div>
 
-                    <!-- Forgot Password & Submit -->
                     <div class="flex items-center justify-between mb-6">
                         @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="text-sm text-orange-500 hover:text-orange-600">
@@ -111,21 +97,11 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
                         </button>
                     </div>
 
-                    <!-- Sign Up Link -->
-                    <div class="text-center">
-                        <p class="text-sm text-gray-600">
-                            {{ __('messages.Don\'t have an account?') }}
-                            <a href="{{ route('register') }}" class="text-orange-500 font-semibold hover:text-orange-600">
-                                {{ __('messages.Sign up') }}
-                            </a>
-                        </p>
-                    </div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- 📞 FOOTER -->
     <footer class="bg-gray-900 text-white text-center py-6 mt-auto">
         <p>{{ __('messages.© All rights reserved') }}</p>
     </footer>

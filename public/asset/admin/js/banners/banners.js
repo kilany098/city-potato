@@ -5,20 +5,28 @@ $(document).ready(function () {
         },
     });
 
-    $("#createUserForm").on("submit", function (e) {
+    /*
+    |--------------------------------------------------------------------------
+    | Create Banner
+    |--------------------------------------------------------------------------
+    */
+
+    $("#createBannerForm").on("submit", function (e) {
         e.preventDefault();
+
         $(".invalid-feedback").remove();
         $(".is-invalid").removeClass("is-invalid");
 
-        var submitButton = $("#createUserButton");
+        var submitButton = $("#createBannerButton");
+
         var originalButtonHtml = submitButton.html();
 
         submitButton.prop("disabled", true);
+
         submitButton.html(
-            '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Loading...',
+            '<span class="spinner-border spinner-border-sm me-1" role="status"></span>Loading...',
         );
 
-        // Create FormData for file upload support
         var formData = new FormData(this);
 
         $.ajax({
@@ -27,24 +35,31 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
+
             success: function (response) {
                 Swal.fire({
                     title: "Success",
-                    text: "The user has been Created successfully",
+                    text: "The banner has been created successfully",
                     icon: "success",
                     showCloseButton: false,
                 }).then(() => {
-                    $("#createUserForm")[0].reset();
-                    $("#createUserModal").modal("hide");
-                    $("#user-table").DataTable().ajax.reload();
+                    $("#createBannerForm")[0].reset();
+
+                    $("#createBannerModal").modal("hide");
+
+                    $("#banner-table").DataTable().ajax.reload();
                 });
             },
+
             error: function (xhr) {
                 if (xhr.status === 422) {
                     var errors = xhr.responseJSON.errors;
+
                     $.each(errors, function (key, value) {
                         var inputField = $(`[name="${key}"]`);
+
                         inputField.addClass("is-invalid");
+
                         inputField.after(
                             `<div class="invalid-feedback">${value[0]}</div>`,
                         );
@@ -54,75 +69,108 @@ $(document).ready(function () {
                         title: "Error",
                         text: "An unexpected error occurred. Please try again later",
                         icon: "error",
-                        confirmButtonText: "OK",
                     });
                 }
             },
+
             complete: function () {
-                // Reset the button after completion
                 submitButton.html(originalButtonHtml).prop("disabled", false);
             },
         });
     });
 
-    $(document).on("click", ".update-user", function (e) {
+    /*
+    |--------------------------------------------------------------------------
+    | Get Banner Data
+    |--------------------------------------------------------------------------
+    */
+
+    $(document).on("click", ".update-banner", function () {
         let id = $(this).data("id");
 
         $.ajax({
-            url: "/users/" + id + "/edit",
+            url: "/banners/" + id + "/edit",
             method: "GET",
             dataType: "json",
+
             success: function (response) {
-                $("#editUserId").val(response.user.id);
-                $("#edit_name").val(response.user.name);
-                $("#edit_email").val(response.user.email);
-                $("#edit_phone").val(response.user.phone);
-                $("#edit_userStatus").val(response.user.is_active);
-                $("#editUserModal").modal("show");
+                $("#editBannerId").val(response.banner.id);
+
+                $("#edit_title").val(response.banner.title);
+
+                $("#edit_subtitle").val(response.banner.subtitle);
+
+                $("#edit_is_active").val(response.banner.is_active);
+
+                if (response.banner.image) {
+                    $("#previewBannerImage")
+                        .attr("src", "/storage/" + response.banner.image.path)
+                        .removeClass("d-none");
+                }
+
+                $("#editBannerModal").modal("show");
             },
-            error: function (response) {
+
+            error: function () {
                 Swal.fire({
                     title: "Error",
-                    text: "There was a problem fetching user data.",
+                    text: "There was a problem fetching banner data.",
                     icon: "error",
-                    showCloseButton: false,
                 });
             },
         });
     });
 
-    $("#editUserForm").on("submit", function (e) {
+    /*
+    |--------------------------------------------------------------------------
+    | Update Banner
+    |--------------------------------------------------------------------------
+    */
+
+    $("#editBannerForm").on("submit", function (e) {
         e.preventDefault();
-        let id = $("#editUserId").val();
+
+        let id = $("#editBannerId").val();
+
         var formData = new FormData(this);
 
         $.ajax({
-            url: "/users/" + id,
+            url: "/banners/" + id,
             type: "POST",
             data: formData,
             processData: false,
             contentType: false,
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
+
             success: function (response) {
-                if (response) {
-                    Swal.fire({
-                        title: "Success",
-                        text: "The user has been Updated successfully",
-                        icon: "success",
-                        showCloseButton: false,
-                    }).then(() => {
-                        $("#editUserModal").modal("hide");
-                        $("#user-table").DataTable().ajax.reload();
-                    });
-                }
+                Swal.fire({
+                    title: "Success",
+                    text: "The banner has been updated successfully",
+                    icon: "success",
+                    showCloseButton: false,
+                }).then(() => {
+                    $("#editBannerModal").modal("hide");
+
+                    $("#banner-table").DataTable().ajax.reload();
+                });
             },
-            error: function (xhr) {},
+
+            error: function () {
+                Swal.fire({
+                    title: "Error",
+                    text: "Something went wrong",
+                    icon: "error",
+                });
+            },
         });
     });
 
-    $("#user-table").on("submit", ".delete-form", function (e) {
+    /*
+    |--------------------------------------------------------------------------
+    | Delete Banner
+    |--------------------------------------------------------------------------
+    */
+
+    $("#banner-table").on("submit", ".delete-form", function (e) {
         e.preventDefault();
 
         Swal.fire({
@@ -137,25 +185,22 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 let url = $(this).attr("action");
+
                 $.ajax({
                     url: url,
                     type: "DELETE",
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content",
-                        ),
-                    },
+
                     success: function (response) {
                         Swal.fire({
                             title: window.translations.deleted,
                             text: response.message,
                             icon: "success",
-                            showCloseButton: false,
                         }).then(() => {
-                            $("#user-table").DataTable().ajax.reload();
+                            $("#banner-table").DataTable().ajax.reload();
                         });
                     },
-                    error: function (response) {
+
+                    error: function () {
                         Swal.fire({
                             title: window.translations.error,
                             text: window.translations.failedDelete,
