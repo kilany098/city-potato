@@ -25,7 +25,7 @@ class BannerDataTable extends DataTable
             ->setRowId('id')
             ->addColumn('image', function ($banner) {
                 if ($banner->image) {
-                    return '<img class="rounded-circle" width="70" height="70" src="' . asset('storage/' . $banner->image->path) . '" alt="Banner Image"/>';
+                    return '<img class=width="70" height="70" src="' . asset('storage/' . $banner->image->path) . '" alt="Banner Image"/>';
                 } else {
                     return '<img class="rounded-circle" width="70" height="70" src="/asset/admin/images/users/default-user.svg" alt="Banner Image">';
                 }

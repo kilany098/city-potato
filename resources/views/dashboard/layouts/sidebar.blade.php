@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{route('contacts.index')}}" class="side-nav-link">
                     <span class="menu-icon"><i class="ri-contacts-book-line"></i></span>
                     <span class="menu-text"> {{__('messages.Contacts')}} </span>
                 </a>

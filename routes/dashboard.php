@@ -22,9 +22,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::resource('banners', BannersController::class);
         Route::resource('branches', BranchesController::class);
         Route::resource('categories', CategoriesController::class);
-        Route::resource('contacts', ContactsController::class);
         Route::resource('extras', ExtrasController::class);
         Route::resource('meals', MealsController::class);
         Route::resource('tables', TablesController::class);
+        Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts.index');
+        Route::post('/contacts', [ContactsController::class, 'update'])->name('contacts.update');
     });
 });

@@ -39,7 +39,7 @@ $(document).ready(function () {
             success: function (response) {
                 Swal.fire({
                     title: "Success",
-                    text: "The banner has been created successfully",
+                    text: response.message,
                     icon: "success",
                     showCloseButton: false,
                 }).then(() => {
@@ -144,7 +144,7 @@ $(document).ready(function () {
             success: function (response) {
                 Swal.fire({
                     title: "Success",
-                    text: "The banner has been updated successfully",
+                    text: response.message,
                     icon: "success",
                     showCloseButton: false,
                 }).then(() => {

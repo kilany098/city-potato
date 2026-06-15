@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\DataTables\UserDataTable;
+use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\{
-    User,
-    Role
-};
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
     public function index(UserDataTable $datatable)
     {
         $roles = Role::all();
+
         return $datatable->render('dashboard.users.index', compact('roles'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,60 +30,141 @@ class UsersController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'password' => Hash::make($validated['password']),
+        DB::beginTransaction();
+
+        try {
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            $user->addRole($validated['role']);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'user' => $user->load('roles'),
+                'message' => __('messages.user_created_successfully'),
+            ], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error('User creation failed', [
+                'email' => $request->email,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => __('messages.user_creation_failed'),
+            ], 500);
+        }
+    }
+
+    public function edit(User $user)
+    {
+        return response()->json([
+            'success' => true,
+            'user' => $user->load('roles'),
+            'message' => 'User data retrieved successfully',
         ]);
-        $user->addRole($validated['role']);
-        // Return response
-        return response()->json(['message' => 'User created successfully', 'data' => $user], 201);
     }
 
-    public function edit($id)
+    public function update(Request $request, User $user)
     {
-        $user = User::find($id);
-        return response()->json(['user' => $user], 201);
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        // Find user by ID
-        $user = User::findOrFail($id);
-        // Validate inputs
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => ['required', 'email'],
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required|string|max:15',
-            'status' => 'required|in:0,1',
+            'status' => 'required|boolean',
             'password' => 'nullable|string|min:8',
-            'role' => 'nullable|string'
+            'role' => 'nullable|in:superadministrator,administrator,chef,user',
         ]);
 
-        // Update user attributes
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->phone = $validated['phone'];
-        $user->is_active = $validated['status'];
-        // Update password only if provided
-        if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
+        DB::beginTransaction();
+
+        try {
+            $user->update([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'is_active' => $validated['status'],
+            ]);
+
+            if (!empty($validated['password'])) {
+                $user->update([
+                    'password' => Hash::make($validated['password']),
+                ]);
+            }
+
+            if (!empty($validated['role'])) {
+                $currentRole = $user->roles->first();
+
+                if ($currentRole && $currentRole->name !== $validated['role']) {
+                    $user->removeRole($currentRole->name);
+                    $user->addRole($validated['role']);
+                }
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'user' => $user->fresh()->load('roles'),
+                'message' => __('messages.user_updated_successfully'),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error('User update failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => __('messages.user_update_failed'),
+            ], 500);
         }
-        if (!empty($validated['role'])) {
-            $user->removeRole($user->roles->first()->name);
-            $user->addRole($validated['role']);
-        }
-        $user->save();
-        return response()->json(['message' => 'User updated successfully'], 200);
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::find($id);
-        $user->removeRole($user->roles->first()->name);
-        $user->delete();
-        return response()->json(['message' => 'User deleted successfully',], 200);
+        DB::beginTransaction();
+
+        try {
+            $currentRole = $user->roles->first();
+
+            if ($currentRole) {
+                $user->removeRole($currentRole->name);
+            }
+
+            $user->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => __('messages.user_deleted_successfully'),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error('User deletion failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => __('messages.user_delete_failed'),
+            ], 500);
+        }
     }
 }
