@@ -118,4 +118,10 @@ return [
     'Save Changes'                                  => 'حفظ التغييرات',
     'Reset'                                         => 'إعادة تعيين',
     'Contact information updated successfully'      => 'تم تحديث معلومات التواصل بنجاح',
+    'Fresh Ingredients' => 'مكونات طازجة',
+    'Fast Delivery' => 'توصيل سريع',
+    'Great Taste' => 'مذاق رائع',
+    'hero_title_line_1' => 'مقرمشة. لذيذة.',
+    'hero_title_line_2' => 'طازجة دائماً!',
+    'hero_description' => 'استمتع بأشهى البطاطا المقلية والصلصات اللذيذة وقطع الدجاج والأصابع المقرمشة المحضرة طازجة خصيصاً لك كل يوم.',
 ];

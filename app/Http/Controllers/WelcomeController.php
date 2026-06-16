@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Banner;
+
 class WelcomeController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $banners = Banner::with('image')->get();
+        return view('welcome', compact('banners'));
     }
 }
