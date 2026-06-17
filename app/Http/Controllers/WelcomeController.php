@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Banner;
+use App\Models\{
+    Banner,
+};
 
 class WelcomeController extends Controller
 {
